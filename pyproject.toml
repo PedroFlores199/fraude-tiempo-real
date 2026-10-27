@@ -1,0 +1,30 @@
+[project]
+name = "fraude-tiempo-real"
+version = "2.0.0"
+description = "Detección de fraude con tarjeta en tiempo real con Kafka, Spark, Redis y MongoDB"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["modelos", "checkpoints"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP", "SIM", "C4"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["api", "carga", "comun", "entrenamiento", "generador", "panel", "streaming"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = ["spark: pruebas que arrancan una sesión local de Spark"]
+filterwarnings = [
+    "ignore::DeprecationWarning:sklearn.*",
+    "ignore::DeprecationWarning:pyspark.*",
+    "ignore::DeprecationWarning:starlette.*",
+]
+
+[tool.coverage.run]
+source = ["api", "carga", "comun", "entrenamiento", "generador", "panel", "streaming"]
+omit = ["panel/app.py"]

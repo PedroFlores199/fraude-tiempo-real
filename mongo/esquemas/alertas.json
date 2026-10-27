@@ -1,0 +1,65 @@
+{
+  "title": "Alerta de fraude",
+  "type": "object",
+  "required": [
+    "_id",
+    "transaccion",
+    "cliente_id",
+    "tarjeta_id",
+    "fecha",
+    "decision",
+    "motivos",
+    "detalle_reglas",
+    "puntuacion_modelo",
+    "features",
+    "perfil_cliente",
+    "estado",
+    "latencia_ms",
+    "procesado_en"
+  ],
+  "properties": {
+    "_id": {"type": "string"},
+    "transaccion": {
+      "type": "object",
+      "required": [
+        "id_transaccion",
+        "cliente_id",
+        "tarjeta_id",
+        "importe",
+        "comercio",
+        "categoria",
+        "ciudad",
+        "lat",
+        "lon",
+        "fecha_hora"
+      ],
+      "properties": {
+        "importe": {"type": "number", "minimum": 0},
+        "lat": {"type": "number"},
+        "lon": {"type": "number"},
+        "fecha_hora": {"bsonType": "date"}
+      }
+    },
+    "cliente_id": {"type": "string"},
+    "tarjeta_id": {"type": "string"},
+    "fecha": {"bsonType": "date"},
+    "decision": {"enum": ["REVISAR", "BLOQUEADA"]},
+    "motivos": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "detalle_reglas": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["regla", "motivo", "gravedad"],
+        "properties": {"gravedad": {"enum": ["alta", "media"]}}
+      }
+    },
+    "puntuacion_modelo": {"type": "number", "minimum": 0, "maximum": 1},
+    "features": {"type": "object"},
+    "perfil_cliente": {"type": ["object", "null"]},
+    "estado": {"enum": ["PENDIENTE", "FRAUDE_CONFIRMADO", "FALSO_POSITIVO"]},
+    "latencia_ms": {"type": "number", "minimum": 0},
+    "procesado_en": {"bsonType": "date"},
+    "revisado_en": {"bsonType": "date"},
+    "descartada_en": {"bsonType": "date"}
+  }
+}

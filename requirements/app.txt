@@ -1,0 +1,3 @@
+-r generador.txt
+-r api.txt
+-r panel.txt
