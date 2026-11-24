@@ -15,6 +15,7 @@ from comun.informes import (
 from panel.oyente import OyenteAlertas
 
 COLORES_DECISION = {"BLOQUEADA": "#c0392b", "REVISAR": "#e67e22"}
+COLORES_LINEAS = ["#4a6200", "#9bbf2f"]
 SQL_METRICAS = """
     SELECT fecha, transacciones_por_segundo, porcentaje_bloqueadas,
            latencia_media_ms, latencia_max_ms
@@ -154,7 +155,11 @@ def seccion_metricas() -> None:
     columnas[2].metric("Latencia media", f"{ultima.latencia_media_ms:.0f} ms")
     st.plotly_chart(
         px.line(
-            metricas, x="fecha", y="transacciones_por_segundo", title="Transacciones por segundo"
+            metricas,
+            x="fecha",
+            y="transacciones_por_segundo",
+            title="Transacciones por segundo",
+            color_discrete_sequence=COLORES_LINEAS,
         ),
         use_container_width=True,
     )
@@ -164,6 +169,7 @@ def seccion_metricas() -> None:
             x="fecha",
             y=["latencia_media_ms", "latencia_max_ms"],
             title="Latencia de decisión (ms)",
+            color_discrete_sequence=COLORES_LINEAS,
         ),
         use_container_width=True,
     )

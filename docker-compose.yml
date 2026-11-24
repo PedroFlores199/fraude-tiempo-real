@@ -241,6 +241,7 @@ services:
       - --server.address=0.0.0.0
       - --server.headless=true
       - --browser.gatherUsageStats=false
+      - --theme.primaryColor=#4a6200
     ports:
       - "8501:8501"
     depends_on:
